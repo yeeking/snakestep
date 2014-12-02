@@ -9,7 +9,6 @@ class Messager:
     def send(self, message):
         print "Messager sends: "
         print message
-  
 
 # define a simple class to represent a single sequence
 class Sequence:
@@ -74,10 +73,6 @@ class Clock:
     # add something that wants to know when the clock ticks    
     def addListener(self, listener):
         self.listeners.append(listener)
-        
-        
-
- 
     
 seq = Sequence()
 clock = Clock()
