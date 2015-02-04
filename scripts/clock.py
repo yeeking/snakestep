@@ -65,10 +65,7 @@ class Clock:
                     #    print "waited "+str(timewaited)
         #return timewaited
 
-clock = Clock()
-thread.start_new_thread(clock.start(), ())
-
-
-
-while 1:
-   pass
+#clock = Clock()
+#thread.start_new_thread(clock.start(), ())
+#while 1:
+#   pass
