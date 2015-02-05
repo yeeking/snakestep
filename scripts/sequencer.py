@@ -13,7 +13,10 @@ class Messager:
 
 # define a simple class to represent a single sequence
 class Sequence:
-    def __init__(self, messager = Messager(), channel = 0, seq_length = 8):
+    def __init__(self, 
+                 messager = Messager(), 
+                 channel = 0, 
+                 seq_length = 8):
         # initialise the memort
         self.memory = [[random.random()] for i in range(seq_length)]
         self.step = 0
@@ -113,7 +116,10 @@ class Sequence:
 
 # define a simple class to represent a single sequence
 class Sequencer:
-    def __init__(self, count=2):
+    def __init__(self, count=2, 
+                 curses_window = None):
+        # we'll write stuff here
+        self.curses_window = curses_window
         self.sequences = [Sequence() for i in range(0, count)]
         self.sequences[0].set_end(5)
         self.sequences[0].begin_edit(1)
@@ -122,22 +128,27 @@ class Sequencer:
         self.clock.add_listener(self)
 # implement the 'clock listener' interface
     def tick(self):
- #       state = ""
- #       ind = 0
+        if self.curses_window == None:
+            print (self.to_string())
+        else:
+            self.curses_window.addstr(0, 0, self.to_string())
+            self.curses_window.refresh()
         for seq in self.sequences:
             seq.tick()
-            print str(ind) + ":" + seq.get_state_desc()
-#            ind += 1
-#            state += seq.get_state_desc() + "\n"
+
+# returns a string representation of the sequencer
+    def to_string(self):
+        state = ""
+        row = 0
+        for seq in self.sequences:
+            state += str(row) + ":" + seq.get_state_desc() + "\n"
+            row += 1
+        return state
 
     def play(self):
-        print "Sequencer::play"
-        thread.start_new_thread(self.clock.start(), ())
+#        print "Sequencer::play"
+        return self.clock.start()
+        #return thread.start_new_thread(self.clock.start(), ())
     def stop(self):
         print "Sequencer::stop"
-
-    # receive a key pressed event
-    def key_pressed(self, char):
-        print char
-# test code
 

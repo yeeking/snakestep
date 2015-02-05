@@ -1,8 +1,9 @@
 import time
 import thread
+import threading
 # really basic implementation of a busy waiting clock
 
-class Clock:
+class Clock(threading.Thread):
     def __init__(self):
         self.bpm(120)
         # listeners stores things that listen for clock ticks
@@ -21,7 +22,7 @@ class Clock:
         self._run()
 
     def stop(self):
-        print "Clock::stop"
+#        print "Clock::stop"
         self._running = False
 
     # add something that wants to know when the clock ticks    
@@ -41,12 +42,14 @@ class Clock:
             #else:
             #    self._busy_sleep(self._tick_length - lostms)
             self._busy_sleep(self._tick_length - lostms)
+            
+        return
     def _tick(self):
 	this_tick = time.time()
-        print "Clock::tick diff: "+str(this_tick - self._last_tick)
+#        print "Clock::tick diff: "+str(this_tick - self._last_tick)
         self._last_tick = this_tick 
         for listener in self._listeners:
-            print "CLock::ticking a listener"
+#            print "CLock::ticking a listener"
             listener.tick()
         
     def _busy_sleep(self, timems):
