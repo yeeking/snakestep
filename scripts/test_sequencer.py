@@ -55,14 +55,17 @@ window = curses.initscr()
 curses.cbreak()
 # don't echo back the user's commands
 curses.noecho()
-window.keypad(1)
+#window.keypad(1)
 curses.start_color()
 curses.curs_set(0)
 
 seq = sequencer.Sequencer(curses_window = window)
-seq.play()
 while 1:
     c = window.getch()
+    if curses.keyname(c)=="s" :
+        seq.stop()
+    if curses.keyname(c)=="a" :
+        seq.play()
     if curses.keyname(c)=="q" :
         seq.stop()
         curses.nocbreak()

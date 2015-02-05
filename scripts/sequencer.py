@@ -147,8 +147,8 @@ class Sequencer:
 
     def play(self):
 #        print "Sequencer::play"
-        return self.clock.start()
-        #return thread.start_new_thread(self.clock.start(), ())
+ #       return self.clock.start()
+        thread.start_new_thread(self.clock.start, ())
     def stop(self):
-        print "Sequencer::stop"
-
+        #print "Sequencer::stop"
+        self.clock.stop()

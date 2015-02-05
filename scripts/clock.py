@@ -3,7 +3,7 @@ import thread
 import threading
 # really basic implementation of a busy waiting clock
 
-class Clock(threading.Thread):
+class Clock():
     def __init__(self):
         self.bpm(120)
         # listeners stores things that listen for clock ticks
@@ -17,7 +17,7 @@ class Clock(threading.Thread):
         self._tick_length = 60.0/bpm / 4 * 1000.0
 
     def start(self):
-        print "Clock::start"
+        #print "Clock::start"
         #thread.start_new_thread(self._run, ())
         self._run()
 
